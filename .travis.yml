@@ -1,0 +1,36 @@
+# travis-ci does not have first-class support for octave
+language: python
+
+before_install:
+  - export
+  - sudo add-apt-repository ppa:octave/stable -y
+  - sudo apt-get update -qq
+
+install:
+  # sdpt3 and sedumi do not work with Octave 3.8.x :-(
+  - sudo apt-get install -qq octave liboctave-dev
+
+  # # build octave 4.0.0
+  # - sudo apt-get install g++ gcc gfortran make autoconf automake bison flex gperf gzip icoutils librsvg2-bin libtool perl rsync tar libblas-dev liblapack-dev libpcre3-dev libarpack2-dev libcurl4-gnutls-dev epstool libfftw3-dev transfig libfltk1.3-dev libfontconfig1-dev libfreetype6-dev libgl2ps-dev libglpk-dev libreadline-dev gnuplot libgraphicsmagick++-dev libhdf5-serial-dev openjdk-7-jdk libsndfile1-dev llvm-dev lpr texinfo libgl1-mesa-dev libosmesa6-dev pstoedit portaudio19-dev libqhull-dev libqrupdate-dev libqscintilla2-dev libqt4-dev libqtcore4 libqtwebkit4 libqt4-network libqtgui4 libsuitesparse-dev libxft-dev zlib1g-dev libopenblas-dev
+  # - sudo mkdir -p /opt
+  # - wget -c ftp://ftp.gnu.org/gnu/octave/octave-4.0.0.tar.gz -O /tmp/octave-4.0.0.tar.gz
+  # - cd /tmp && tar -xzf octave-4.0.0.tar.gz
+  # - cd /tmp/octave-4.0.0 && ./configure --prefix=/opt/octave-4.0.0 CPPFLAGS=-I/usr/include/hdf5/serial LDFLAGS=-L/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/hdf5/serial
+  # - cd /tmp/octave-4.0.0 && make
+  # - cd /tmp/octave-4.0.0 && sudo make install
+  # - export PATH=/opt/octave-4.0.0/bin:$PATH
+
+  # # install sdpt3
+  # - git clone https://github.com/sqlp/sdpt3.git /tmp/sdpt3
+  # - cd /tmp/sdpt3 && octave --eval "install_sdpt3; savepath"
+
+  # # install sedumi
+  # - git clone https://github.com/sqlp/sedumi.git /tmp/sedumi
+  # - cd /tmp/sedumi && octave --eval "install_sedumi; savepath"
+
+  # install doctest
+  - git clone https://github.com/catch22/octave-doctest.git /tmp/doctest
+  - cd /tmp/doctest && make test
+  - octave --eval "addpath('/tmp/doctest/inst', '/tmp/doctest/src'); savepath;"
+
+script: cd ~/build/catch22/quantbox && make test
