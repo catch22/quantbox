@@ -1,4 +1,4 @@
-QUANTBOX
+QUANTBOX [![Build Status](https://travis-ci.org/catch22/quantbox.svg?branch=master)](https://travis-ci.org/catch22/quantbox)
 ========
 
 The quantum sandbox ("quantbox") is a repository of Octave/Matlab code in the context of quantum information theory. See the source files for detailed inline documentation.
