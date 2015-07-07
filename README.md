@@ -11,7 +11,7 @@ Run `install_quantbox` to add all folders to the path. Use `savepath` if you wan
 
 Most functionality should work out of the box.
 
-The semidefinite programming wrapper (`solve_sdp`) requires either [SDPT3](http://www.math.nus.edu.sg/~mattohkc/sdpt3.html) or [SeDuMi](http://sedumi.ie.lehigh.edu/). We recommend [this distribution](https://github.com/sqlp), which works with both Octave and Matlab.
+The semidefinite programming wrapper [`solve_sdp`](sdp/solve_sdp.m) requires either [SDPT3](http://www.math.nus.edu.sg/~mattohkc/sdpt3.html) or [SeDuMi](http://sedumi.ie.lehigh.edu/). We recommend [this distribution](https://github.com/sqlp), which works with both Octave and Matlab.
 
 The self-tests use the [octave-doctest](https://github.com/catch22/octave-doctest) package. They can be run via `make test`.
 
