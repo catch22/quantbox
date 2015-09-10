@@ -28,6 +28,10 @@ function [rho_ext, dims_ext, rho_pt, dims_pt, info] = sym_extension(rho_ab, dims
 %
 % >> PT = channel_kron(sym_partial_trace_channel(2, 3, 3), sym_partial_trace_channel(4, 3, 5));
 % >> [rho_ab, dims_ab] = choi_state(2.5);
+% >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5]);
+% ...
+% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
+%
 % >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5], [0 0], [1 1], 'sdpt3');
 % ...SDPT3...
 % >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
@@ -62,17 +66,17 @@ function [rho_ext, dims_ext, rho_pt, dims_pt, info] = sym_extension(rho_ab, dims
 %
 % See also SYMMETRIC_EXTENSION, SYM_PARTIAL_TRACE_CHANNEL, SYM_SPLIT_CHANNEL.
 
-if any(init_ab > exts_ab)
-  error('There must be no more initial extensions than final.')
-end
-
 % set default arguments
 if nargin < 4
-  ppt = [0 0];
+  ppt_ab = [0 0];
 end
 
 if nargin < 5
-  init = [1 1];
+  init_ab = [1 1];
+end
+
+if any(init_ab > exts_ab)
+  error('There must not be more initial extensions than final extensions.')
 end
 
 % determine dimensions
