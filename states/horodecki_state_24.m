@@ -14,9 +14,9 @@ function [rho, dims] = horodecki_state_24(b)
 %
 % >> [rho, dims] = horodecki_state_24(0.5);
 % >> options = struct; options.printlevel = 0;
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [11 1], [0 0], [1 1], 'sdpt3', options); info.termcode
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [11 1], [0 0], [1 1], 'sdpt3', options); info.termcode % doctest: +SKIP
 % 0
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [12 1], [0 0], [1 1], 'sdpt3', options); info.termcode
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [12 1], [0 0], [1 1], 'sdpt3', options); info.termcode % doctest: +SKIP
 % 1
 
 e1 = [1;0];
