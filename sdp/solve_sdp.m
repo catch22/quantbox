@@ -192,7 +192,7 @@ clear('AA');
 % call sqlp
 [~, X, ~, ~, info, ~] = sqlp(blk, At, C, b, options);
 
-% fix up trace (is this a bug in SDPT3 4.0?)
+% fix up trace (XXX: is this a bug in SDPT3 4.0?)
 if iscmp
   for j=1:num_cones
     X{j} = 2 * X{j};
