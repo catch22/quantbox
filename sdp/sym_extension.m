@@ -123,6 +123,9 @@ end
 rho_ext = result{1};
 if have_ppt
   rho_pt = result{2};
+else
+  rho_pt = false;
+  dims_pt = false;
 end
 
 end
