@@ -25,12 +25,12 @@ function [erg, dims] = moroder_guehne_state(m1,m2)
 % 1
 % >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3', options); info.termcode % doctest: +SKIP
 % 1
-% >> print('The numerical example presented in the original article')
+% >> fprintf('The numerical example presented in the original article')
 % >> erg = [0.026,0,0,0,0.0261,0,0,0,-0.0261;0,0.0129,0,0.0261,0.0369,0,0,0,0.0369;0,0,0.0129,0,0,-0.0369,-0.0261,0.0369,0;0,0.0261,0,0.0526,0.0744,0,0,0,0.0744;0.0261,0.0369,0,0.0744,0.132,0,0,0,0.0792;0,0,-0.0369,0,0,0.29,0.0744,0.0792,0;0,0,-0.0261,0,0,0.0744,0.0526,-0.0744,0;0,0,0.0369,0,0,0.0792,-0.0744,0.29,0;-0.0261,0.0369,0,0.0744,0.0792,0,0,0,0.132];
-% >> assert_close(rho, erg, 0.001)
-% >> assert_close(rho, erg, 0.0001)
-% Error using assert_close (line 40)
-% Inputs differ more than tolerance.
+% >> try assert_close(rho, erg, 0.001 ); fprintf('0\n'); catch e; fprintf('1\n'); end
+% 0
+% >> try assert_close(rho, erg, 0.0001); fprintf('0\n'); catch e; fprintf('1\n'); end
+% 1
 
 
 assert(m1>=0,'Parameter m1 is negative.')
