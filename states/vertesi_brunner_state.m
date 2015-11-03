@@ -1,26 +1,24 @@
-function [erg, dims] =  vertesi_brunner_state()
-% 3x3 bound entangled state (Tamas  Vertesi and  Nicolas  Brunner, 1405.4502v2).
+function [rho, dims] =  vertesi_brunner_state()
+% 3x3 bound entangled state (Tamas Vertesi and Nicolas Brunner, arXiv:1405.4502).
 %
 % Usage
 % =====
 %
-% [RHO, DIMS] =  vertesi_brunner_state()
+% [RHO, DIMS] = vertesi_brunner_state()
 %
-% This state is bound entangled, see arxiv:1405.4502v2.
-% The sdp fails already at finding one single extension
+% This state is bound entangled, see arxiv:1405.4502.
 %
 %
 % Examples
 % ========
 %
-% >> [rho, dims] = BrunnerState();
-% >> options = struct; options.printlevel = 0;
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [1 1], [0 0], [1 1], 'sdpt3', options); info.termcode % doctest: +SKIP
-% 0
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [0 0], [1 1], 'sdpt3', options); info.termcode % doctest: +SKIP
-% 1
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3', options); info.termcode % doctest: +SKIP
-% 1
+% This state is not even 2-extendible:
+%
+% >> [rho, dims] = vertesi_brunner_state();
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [0 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% ...ans = 1
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% ...ans = 1
 
 a = sqrt(131/2);
 l1 = 3257/6884;
@@ -43,8 +41,7 @@ psi2 = a/12*psip + brum;
 psi3 = a/12*phim + brup;
 psi4 = kron(e3,e3) - psim;
 
-
-erg = l1*phip*phip'/2 + l2*psi2*psi2' + l3*psi3*psi3' + l4*psi4*psi4'/3;
+rho = l1*phip*phip'/2 + l2*psi2*psi2' + l3*psi3*psi3' + l4*psi4*psi4'/3;
 dims = [3,3];
 
 end
