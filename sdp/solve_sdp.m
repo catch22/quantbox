@@ -33,17 +33,18 @@ function [X, info] = solve_sdp(PHI, B, C, solver, options)
 % Examples
 % ========
 %
-% >> X = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sdpt3');   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
-% ...SDPT3...
-% >> assert_close(X{1}, diag([1 0]), 1e-8);
+% >> [X, INFO] = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sdpt3'); INFO.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% .. assert_close(X{1}, diag([1 0]), 1e-8);
+% ...ans = 0
 %
-% >> X = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sedumi');   % doctest: +SKIP_UNLESS(solve_sdp_sedumi_available)
-% ...SeDuMi...
-% >> assert_close(X{1}, diag([1 0]), 1e-8);
+% >> [X, INFO] = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sedumi');    % doctest: +SKIP_UNLESS(solve_sdp_sedumi_available)
+% .. assert_close(INFO.feasratio, 1, 1e-8);
+% .. assert_close(X{1}, diag([1 0]), 1e-8);
+% ...
 %
-% >> X = solve_sdp(trace_channel(2), 1, complex(diag([-1, 1])), 'sdpt3');   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
-% ...SDPT3...
-% >> assert_close(X{1}, diag([1 0]), 1e-8);
+% >> [X, INFO] = solve_sdp(trace_channel(2), 1, complex(diag([-1, 1])), 'sdpt3'); INFO.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% .. assert_close(X{1}, diag([1 0]), 1e-8);
+% ...ans = 0
 %
 %
 % TODO

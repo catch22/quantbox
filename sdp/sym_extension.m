@@ -28,40 +28,40 @@ function [rho_ext, dims_ext, rho_pt, dims_pt, info] = sym_extension(rho_ab, dims
 %
 % >> PT = channel_kron(sym_partial_trace_channel(2, 3, 3), sym_partial_trace_channel(4, 3, 5));
 % >> [rho_ab, dims_ab] = choi_state(2.5);
-% >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5]);
+% >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5])     % doctest: +SKIP_UNLESS(solve_sdp_available)
 % ...
-% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
+% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)   % doctest: +SKIP_UNLESS(solve_sdp_available)
 %
-% >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5], [0 0], [1 1], 'sdpt3');
-% ...SDPT3...
-% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
+% >> [RHO_EXT, ~, ~, ~, INFO] = sym_extension(rho_ab, dims_ab, [3 5], [0 0], [1 1], 'sdpt3'); INFO.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 0
+% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)                                                        % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 %
-% >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5], [0 0], [1 1], 'sedumi');
+% >> RHO_EXT = sym_extension(rho_ab, dims_ab, [3 5], [0 0], [1 1], 'sedumi');   % doctest: +SKIP_UNLESS(solve_sdp_sedumi_available)
 % ...SeDuMi...
-% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
+% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)                          % doctest: +SKIP_UNLESS(solve_sdp_sedumi_available)
 %
-% >> [rho_ab, dims_ab] = choi_state(2.5); RHO_EXT = sym_extension(rho_ab, dims_ab, [1 2], [0 1], [1 1], 'sdpt3');
-% ...SDPT3...
-% >> PT = channel_kron(sym_partial_trace_channel(0, 3, 1), sym_partial_trace_channel(1, 3, 2));
-% >> assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
+% >> [rho_ab, dims_ab] = choi_state(2.5); [RHO_EXT, ~, ~, ~, INFO] = sym_extension(rho_ab, dims_ab, [1 2], [0 1], [1 1], 'sdpt3'); INFO.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 0
+% >> PT = channel_kron(sym_partial_trace_channel(0, 3, 1), sym_partial_trace_channel(1, 3, 2));                                                    % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% .. assert_close(vec(rho_ab), PT*vec(RHO_EXT), 1e-08)
 %
-% >> [U, ~, ~] = svd(rand(3));
+% >> [U, ~, ~] = svd(rand(3));   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % .. sigma = U*diag([1 0 0])*U'; sigma = 1/trace(sigma)*sigma; rho_ab = kron(sigma,sigma);
-% .. RHO_EXT = sym_extension(rho_ab, [3 3], [2 1], [1 0], [1 1], 'sdpt3');
+% .. [RHO_EXT, ~, ~, ~, INFO] = sym_extension(rho_ab, [3 3], [2 1], [1 0], [1 1], 'sdpt3'); INFO.termcode
 % .. PT = channel_kron(sym_partial_trace_channel(1, 3, 2), sym_partial_trace_channel(0, 3, 1));
 % .. assert_close(rho_ab, mat(PT*vec(RHO_EXT)), 1e-06);
-% ...SDPT3...
+% ...ans = 0
 %
-% >> [U, ~, ~] = svd(rand(3) + 1i*rand(3));  % doctest: +XFAIL   % sdpt3 bug
+% >> [U, ~, ~] = svd(rand(3) + 1i*rand(3));   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)   % doctest: +XFAIL   % sdpt3 bug
 % .. sigma = U*diag([1 0 0])*U'; sigma = 1/trace(sigma)*sigma; rho_ab = kron(sigma,sigma);
-% .. RHO_EXT = sym_extension(rho_ab, [3 3], [2 1], [1 0], [1 1], 'sdpt3');
+% .. [RHO_EXT, ~, ~, ~, INFO] = sym_extension(rho_ab, [3 3], [2 1], [1 0], [1 1], 'sdpt3'); INFO.termcode
 %
 % >> [U, ~, ~] = svd(rand(3)); sigma = U*diag([1, 0, 0])*U'; sigma = 1/(2*trace(sigma)) * (sigma + sigma'); rho_ab_init = kron(sigma, sigma);
-% >> rho_ab = sym_extension(rho_ab_init, [3 3], [2 1], [0 0], [1 1], 'sdpt3');
-% ...SDPT3...
-% >> RHO_EXT = sym_extension(rho_ab, [3 3], [2 4], [0 0], [2 1], 'sdpt3');
-% ...SDPT3...
-% >> assert_close( rho_ab_init, mat( channel_kron( sym_partial_trace_channel(1, 3, 2), sym_partial_trace_channel(3,3,4))*vec(RHO_EXT)) )
+% >> [rho_ab, ~, ~, ~, info] = sym_extension(rho_ab_init, [3 3], [2 1], [0 0], [1 1], 'sdpt3'); info.termcode                          % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 0
+% >> [RHO_EXT, ~, ~, ~, INFO] = sym_extension(rho_ab, [3 3], [2 4], [0 0], [2 1], 'sdpt3'); INFO.termcode                              % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 0
+% >> assert_close(rho_ab_init, mat(channel_kron(sym_partial_trace_channel(1, 3, 2), sym_partial_trace_channel(3,3,4))*vec(RHO_EXT)))   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 %
 %
 % See also SYMMETRIC_EXTENSION, SYM_PARTIAL_TRACE_CHANNEL, SYM_SPLIT_CHANNEL.

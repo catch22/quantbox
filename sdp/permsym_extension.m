@@ -13,16 +13,16 @@ function [rho_ext, dims_ext, info] = permsym_extension(rho_ab, dims_ab, k, varar
 % Examples
 % ========
 %
-% >> rho_ext = permsym_extension(proj([1,2], [2,2]), [2,2], 2, 'sdpt3');
-% ...SDPT3...
-% >> assert_close(rho_ext, proj([1,2,2], [2,2,2]), 1e-8);
+% >> [rho_ext, ~, info] = permsym_extension(proj([1,2], [2,2]), [2,2], 2, 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 0
+% >> assert_close(rho_ext, proj([1,2,2], [2,2,2]), 1e-8);                                           % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 %
-% >> rho_ext = permsym_extension(proj([1,2], [2,2]), [2,2], 2, 'sdpt3');
-% ...SDPT3...
-% >> assert_close(rho_ext, proj([1,2,2], [2,2,2]), 1e-8);
+% >> [rho_ext, ~, info] = permsym_extension(proj([1,2], [2,2]), [2,2], 2, 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 0
+% >> assert_close(rho_ext, proj([1,2,2], [2,2,2]), 1e-8);                                           % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 %
-% >> permsym_extension(maximally_entangled_state(2), [2,2], 2);
-% ...infeasible...
+% >> [~, ~, info] = permsym_extension(maximally_entangled_state(2), [2,2], 2, 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
+% ...ans = 1
 %
 %
 % See also BOSONIC_EXTENSION.

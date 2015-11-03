@@ -1,7 +1,6 @@
 OCTAVE ?= octave
 MATLAB ?= matlab
 TEST_CODE=success = doctest({'channels', 'info', 'linalg', 'misc', 'sdp', 'states'}); exit(~success);
-TRAVIS_TEST_CODE=success = doctest({'channels', 'info', 'linalg', 'misc', 'states'}); exit(~success);
 
 .PHONY: help test matlab_test
 
@@ -18,4 +17,4 @@ matlab_test:
 	${MATLAB} -nojvm -nodisplay -nosplash -r "addpath('misc'); ${TEST_CODE}"
 
 travis_test:
-	${OCTAVE} --eval "install_quantbox; ${TRAVIS_TEST_CODE}"
+	${OCTAVE} --eval "install_quantbox; ${TEST_CODE}"
