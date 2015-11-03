@@ -33,21 +33,28 @@ function [X, info] = solve_sdp(PHI, B, C, solver, options)
 % Examples
 % ========
 %
-% >> X = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sdpt3');
+% >> X = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sdpt3');   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...SDPT3...
 % >> assert_close(X{1}, diag([1 0]), 1e-8);
 %
-% >> X = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sedumi');
+% >> X = solve_sdp(trace_channel(2), 1, diag([-1, 1]), 'sedumi');   % doctest: +SKIP_UNLESS(solve_sdp_sedumi_available)
 % ...SeDuMi...
 % >> assert_close(X{1}, diag([1 0]), 1e-8);
 %
-% >> X = solve_sdp(trace_channel(2), 1, complex(diag([-1, 1])), 'sdpt3');
+% >> X = solve_sdp(trace_channel(2), 1, complex(diag([-1, 1])), 'sdpt3');   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...SDPT3...
 % >> assert_close(X{1}, diag([1 0]), 1e-8);
+%
+%
+% TODO
+% ====
+%
+% - optimize constraint generation (preallocate AA and b?)
+%
 
-% TODO: optimize constraint generation. preallocate AA and b?
-HAVE_SDPT3 = exist('sdpt3', 'file') ~= 0;
-HAVE_SEDUMI = exist('sedumi', 'file') ~= 0;
+% determine available solvers
+HAVE_SDPT3 = solve_sdp_sdpt3_available();
+HAVE_SEDUMI = solve_sdp_sedumi_available();
 
 % convert arguments to cells, if necessary, and fill in default arguments
 if ~iscell(PHI);
