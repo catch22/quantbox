@@ -33,11 +33,9 @@ function [erg, dims] = moroder_guehne_state(m1, m2)
 %
 % It is not even 2-extendible:
 %
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [1 1], [0 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
-% ...ans = 0
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [0 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [0 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 1
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 1
 
 assert(m1>=0, 'Parameter m1 is negative.');

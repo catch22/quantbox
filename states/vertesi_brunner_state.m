@@ -15,9 +15,9 @@ function [rho, dims] =  vertesi_brunner_state()
 % This state is not even 2-extendible:
 %
 % >> [rho, dims] = vertesi_brunner_state();
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [0 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [0 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 1
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 1
 
 a = sqrt(131/2);

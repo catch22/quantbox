@@ -13,11 +13,11 @@ function [rho, dims] = horodecki_state_24(b)
 % ========
 %
 % >> [rho, dims] = horodecki_state_24(0.5);
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [11 1], [0 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [11 1], [0 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 0
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [12 1], [0 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [12 1], [0 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 1
-% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode % doctest: +SKIP
+% >> [rho_ext, dims_ext, ~, ~, info] = sym_extension(rho, dims, [2 1], [1 0], [1 1], 'sdpt3'); info.termcode   % doctest: +SKIP_UNLESS(solve_sdp_sdpt3_available)
 % ...ans = 1
 
 e1 = [1;0];
