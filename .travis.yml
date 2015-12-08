@@ -33,4 +33,4 @@ install:
   - cd /tmp/doctest && make test
   - octave --eval "addpath('/tmp/doctest/inst', '/tmp/doctest/src'); savepath;"
 
-script: cd ~/build/catch22/quantbox && make travis_test
+script: cd ~/build/catch22/quantbox && make octave_test
