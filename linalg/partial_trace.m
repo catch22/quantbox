@@ -1,10 +1,10 @@
-function rho_ptr = partial_trace(rho, sys, dims)
+function [rho_ptr, dims_ptr] = partial_trace(rho, sys, dims)
 % Return partial trace of multipartite state.
 %
 % Usage
 % =====
 %
-% RHO_PTR = partial_trace(RHO, SYS, DIMS)
+% [RHO_PTR, DIMS_PTR] = partial_trace(RHO, SYS, DIMS)
 %
 % The parameter SYS contains the subsystems to trace out.
 %
@@ -12,12 +12,14 @@ function rho_ptr = partial_trace(rho, sys, dims)
 % Examples
 % ========
 %
-% >> rho = proj([1,2,3], [3,3,3]);
-% >> partial_trace(rho, [1,3], [3,3,3])
-% ans =
-%       0 0 0
-%       0 1 0
-%       0 0 0
+% >> rho = proj([1,2,3], [3,2,3]);
+% >> [rho, dims] = partial_trace(rho, [1,3], [3,2,3])
+% rho =
+%       0 0
+%       0 1
+% dims =
+%       2
+%
 %
 % >> rho = proj([1,2], [3,2]);
 % >> partial_trace(rho, [1], [3,2])
@@ -58,5 +60,6 @@ rho_ptr = reshape(rho_ptr, [dim_keep, dim_keep, dim_sys^2]);
 % contract "last two" indices
 diag_indices = [1:dim_sys + 1:dim_sys^2];
 rho_ptr = sum(rho_ptr(:,:,diag_indices), 3);
+dims_ptr = dims(keep);
 
 end
