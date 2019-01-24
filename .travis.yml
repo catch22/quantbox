@@ -15,8 +15,6 @@ addons:
     - liboctave-dev
 
 install:
-  # sdpt3 and sedumi do not work with Octave 3.8.x :-( for Octave 4.0.0.+, try:
-
   # install sdpt3
   - git clone https://github.com/sqlp/sdpt3.git /tmp/sdpt3
   - cd /tmp/sdpt3 && octave --eval "install_sdpt3; savepath"
