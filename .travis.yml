@@ -21,9 +21,9 @@ install:
   - git clone https://github.com/sqlp/sdpt3.git /tmp/sdpt3
   - cd /tmp/sdpt3 && octave --eval "install_sdpt3; savepath"
 
-  # # install sedumi
-  # - git clone https://github.com/sqlp/sedumi.git /tmp/sedumi
-  # - cd /tmp/sedumi && octave --eval "install_sedumi; savepath"
+  # install sedumi
+  - git clone https://github.com/sqlp/sedumi.git /tmp/sedumi
+  - cd /tmp/sedumi && octave --eval "install_sedumi; savepath"
 
   # install doctest
   - git clone https://github.com/catch22/octave-doctest.git /tmp/doctest
