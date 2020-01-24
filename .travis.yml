@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: xenial
 
 # travis-ci does not have first-class support for octave
 language: generic
