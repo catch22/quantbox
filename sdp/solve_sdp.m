@@ -71,6 +71,7 @@ if nargin < 4
   if HAVE_SDPT3
     solver = 'sdpt3';
     options.printlevel = 2;
+    options.rmdepconstr = true;
   elseif HAVE_SEDUMI
     solver = 'sedumi';
   else
